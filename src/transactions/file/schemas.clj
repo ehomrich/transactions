@@ -1,4 +1,4 @@
-(ns transactions.file.schema
+(ns transactions.file.schemas
   (:require [json-schema.core :as json]))
 
 (def account-schema {:$schema "http://json-schema.org/draft-07/schema#"
