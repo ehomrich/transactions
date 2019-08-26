@@ -1,7 +1,6 @@
 (ns transactions.core
-  (:require [cheshire.core :refer [decode]]
-            [json-schema.core :as json]
-            [transactions.controller :refer [validate-operation]])
+  (:require
+   [transactions.controller :refer [process-data]])
   (:gen-class))
 
 (defn -main
@@ -9,12 +8,5 @@
   [& args]
   (loop [line (read-line)]
     (when line
-      (try
-        (->> (decode line true)
-             (validate-operation)
-             (println))
-        ;; HACK: "catch all" block because `cheshire` does not explicitly list 
-        ;; exceptions that may occur.
-        (catch Exception ex
-          (println "")))
+      (process-data line)
       (recur (read-line)))))
