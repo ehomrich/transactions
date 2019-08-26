@@ -4,6 +4,7 @@
 (defn -main
   "Read from sdtin."
   [& args]
-  (->> (read-line)
-       (println))
-)
+  (loop [line (read-line)]
+    (when line
+      (println line)
+      (recur (read-line)))))
