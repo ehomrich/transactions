@@ -9,5 +9,10 @@
   [& args]
   (loop [line (read-line)]
     (when line
-      (println (decode line true))
+      (try
+        (println (decode line true))
+        ;; HACK: "catch all" block because `cheshire` does not explicitly list 
+        ;; exceptions that may occur.
+        (catch Exception ex
+          (println "")))
       (recur (read-line)))))
