@@ -1,0 +1,35 @@
+# Created by https://www.gitignore.io/api/clojure,leiningen,visualstudiocode
+# Edit at https://www.gitignore.io/?templates=clojure,leiningen,visualstudiocode
+
+### Clojure ###
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/lib/
+/classes/
+/target/
+/checkouts/
+/.lein-*
+.nrepl-port
+.cpcache/
+profiles.clj
+*.jar
+*.class
+.hgignore
+.hg/
+
+### Leiningen ###
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+
+# End of https://www.gitignore.io/api/clojure,leiningen,visualstudiocode
