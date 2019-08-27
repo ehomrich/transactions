@@ -5,12 +5,14 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
 
   :plugins [[lein-cljfmt "0.6.4"]
-            [lein-kibit "0.1.7"]]
+            [lein-kibit "0.1.7"]
+            [lein-midje "3.2.1"]]
 
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [cheshire "5.9.0"]
                  [luposlip/json-schema "0.1.7"]
-                 [clj-time "0.15.2"]]
+                 [clj-time "0.15.2"]
+                 [midje "1.9.9"]]
 
   :main transactions.core
   :target-path "target/%s"
