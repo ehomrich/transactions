@@ -9,8 +9,7 @@
   (:cardActive account))
 
 (defn sufficient-limit? [account amount]
-  (-> (:availableLimit account)
-      (>= amount)))
+  (>= (:availableLimit account) amount))
 
 (defn calculate-limit [account transaction]
   (let [{:keys [availableLimit]} account
