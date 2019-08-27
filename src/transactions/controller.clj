@@ -24,6 +24,7 @@
 
 (defn check-violations [account transaction tx-history]
   (cond
+    (not (logic/account-exists? account)) "unknown-account"
     (not (logic/card-active? account)) "card-blocked"
     (not (logic/sufficient-limit? account transaction)) "insufficient-limit"
     (logic/doubled-transaction? tx-history transaction) "doubled-transaction"
@@ -49,7 +50,7 @@
         (validate-operation)
         (encode)
         (println))
-        ;; HACK: "catch all" block because `cheshire` does not explicitly list 
-        ;; exceptions that may occur.
+    ;; HACK: "catch all" block because `cheshire` does not explicitly list 
+    ;; exceptions that may occur.
     (catch Exception ex
       (println ""))))
