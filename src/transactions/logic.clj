@@ -7,5 +7,11 @@
   (:cardActive account))
 
 (defn sufficient-limit? [account amount]
-  (let [available-limit (:availableLimit account)]
-    (> available-limit amount)))
+  (-> (:availableLimit account)
+      (>= amount)))
+
+(defn get-similar-transactions [tx-history transaction]
+  (let [{:keys [merchant amount]} transaction]
+    (filter (fn [tx]
+              (and (= amount (:amount tx))
+                   (= merchant (:merchant tx)))) tx-history)))
