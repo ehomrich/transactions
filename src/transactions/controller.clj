@@ -13,8 +13,7 @@
   (let [account (account-db/get-account)]
     (if (logic/account-exists? account)
       (prepare-output account ["illegal-account-reset"])
-      (-> (account-db/create-account! data)
-          (prepare-output [])))))
+      (prepare-output (account-db/create-account! data) []))))
 
 (defn update-account-limit! [account transaction]
   (let [{:keys [availableLimit]} account
@@ -36,8 +35,7 @@
         tx-history (transaction-db/get-transaction-history)]
     (if-let [result (check-violations account transaction tx-history)]
       (prepare-output account [result])
-      (-> (update-account-limit! account transaction)
-          (prepare-output [])))))
+      (prepare-output (update-account-limit! account transaction) []))))
 
 (defn validate-operation [data]
   (cond
