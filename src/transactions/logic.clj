@@ -12,8 +12,9 @@
   (-> (:availableLimit account)
       (>= amount)))
 
-(defn calculate-limit [account amount]
-  (let [{:keys [availableLimit]} account]
+(defn calculate-limit [account transaction]
+  (let [{:keys [availableLimit]} account
+        {:keys [amount]} transaction]
     {:availableLimit (- availableLimit amount)}))
 
 (defn parse-date [dt]
