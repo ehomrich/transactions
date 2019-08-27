@@ -1,16 +1,20 @@
 (ns transactions.controller
   (:require
+   [cheshire.core :refer [decode, encode]]
    [transactions.db.account :as account-db]
    [transactions.db.transaction :as transaction-db]
    [transactions.file.schemas :refer [account-schema transaction-schema valid-schema?]]
-   [transactions.file.serializer :refer [serialize]]
    [transactions.logic :as logic]))
+
+(defn prepare-output [account violations]
+  {:account account :violations violations})
 
 (defn save-account! [data]
   (let [account (account-db/get-account)]
     (if (logic/account-exists? account)
-      "illegal-account-reset"
-      (account-db/create-account! data))))
+      (prepare-output account ["illegal-account-reset"])
+      (-> (account-db/create-account! data)
+          (prepare-output [])))))
 
 (defn update-account-limit! [account transaction]
   (let [{:keys [availableLimit]} account
@@ -31,8 +35,9 @@
   (let [account (account-db/get-account)
         tx-history (transaction-db/get-transaction-history)]
     (if-let [result (check-violations account transaction tx-history)]
-      result
-      (update-account-limit! account transaction))))
+      (prepare-output account [result])
+      (-> (update-account-limit! account transaction)
+          (prepare-output [])))))
 
 (defn validate-operation [data]
   (cond
@@ -42,10 +47,11 @@
 
 (defn process-data [data]
   (try
-    (->> (serialize data)
-         (validate-operation)
-         (println))
+    (-> (decode data true)
+        (validate-operation)
+        (encode)
+        (println))
         ;; HACK: "catch all" block because `cheshire` does not explicitly list 
         ;; exceptions that may occur.
     (catch Exception ex
-      (println ex))))
+      (println ""))))
