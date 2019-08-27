@@ -17,8 +17,9 @@
   (local-time/to-local-date-time dt))
 
 (defn get-time-interval [base delta]
-  (let [end (parse-date base)
-        start (time/minus end (time/minutes delta))]
+  (let [base-date (parse-date base)
+        start (time/minus base-date (time/minutes delta))
+        end (time/plus base-date (time/millis 1))]
     (time/interval start end)))
 
 (defn within-interval? [interval dt]
