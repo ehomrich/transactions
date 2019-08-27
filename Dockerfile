@@ -8,6 +8,5 @@ RUN lein uberjar
 
 WORKDIR /app
 RUN cp src/target/uberjar/*-standalone.jar transactions.jar
-RUN ls .
 
 ENTRYPOINT [ "java", "-jar", "transactions.jar" ]
