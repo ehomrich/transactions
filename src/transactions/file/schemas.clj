@@ -6,7 +6,8 @@
                      :type "object"
                      :properties {:account {:type "object"
                                             :properties {:activeCard {:type "boolean"}
-                                                         :availableLimit {:type "number"}}
+                                                         :availableLimit {:type "number"
+                                                                          :minimum 0}}
                                             :required [:activeCard :availableLimit]}}
                      :required [:account]})
 
@@ -15,7 +16,8 @@
                          :type "object"
                          :properties {:transaction {:type "object"
                                                     :properties {:merchant {:type "string"}
-                                                                 :amount {:type "number"}
+                                                                 :amount {:type "number"
+                                                                          :minimum 0}
                                                                  :time {:type "string"}}
                                                     :required [:merchant :amount :time]}}
                          :required [:transaction]})
