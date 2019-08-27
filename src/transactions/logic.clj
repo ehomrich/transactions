@@ -6,15 +6,12 @@
   (seq account))
 
 (defn card-active? [account]
-  (:cardActive account))
+  (:activeCard account))
 
-(defn sufficient-limit? [account amount]
-  (>= (:availableLimit account) amount))
-
-(defn calculate-limit [account transaction]
+(defn sufficient-limit? [account transaction]
   (let [{:keys [availableLimit]} account
         {:keys [amount]} transaction]
-    {:availableLimit (- availableLimit amount)}))
+    (>= availableLimit amount)))
 
 (defn parse-date [dt]
   (local-time/to-local-date-time dt))
@@ -45,7 +42,7 @@
       (count)
       (>= 2)))
 
-(defn high-frequency-transacions? [tx-history transaction]
+(defn high-frequency-transactions? [tx-history transaction]
   (-> (get-transactions-in-time-interval tx-history transaction 2)
       (count)
       (>= 3)))
