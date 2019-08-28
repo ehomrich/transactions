@@ -2,5 +2,13 @@
   (:require [midje.sweet :refer :all]
             [transactions.db.transaction :as transaction-db]))
 
-(fact
- (some even? [1 5]) => falsey)
+(def tx-sample {:merchant "Foo"
+                         :amount 35
+                         :time "2018-03-21T14:19:11.949Z"})
+
+(facts "Account handling"
+       (fact "Get empty transaction history"
+             (transaction-db/get-transaction-history) => [])
+
+       (fact "Add transaction"
+             (transaction-db/save-transaction! tx-sample) => (contains tx-sample)))
