@@ -1,12 +1,7 @@
 FROM clojure
 
-RUN mkdir -p /app /app/src
-
-WORKDIR /app/src
+RUN mkdir /app
+WORKDIR /app
 COPY . .
 RUN lein uberjar
-
-WORKDIR /app
-RUN cp src/target/uberjar/*-standalone.jar transactions.jar
-
-ENTRYPOINT [ "java", "-jar", "transactions.jar" ]
+ENTRYPOINT [ "java", "-jar", "target/uberjar/transactions-0.1.0-SNAPSHOT-standalone.jar" ]
