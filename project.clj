@@ -6,7 +6,8 @@
 
   :plugins [[lein-cljfmt "0.6.4"]
             [lein-kibit "0.1.7"]
-            [lein-midje "3.2.1"]]
+            [lein-midje "3.2.1"]
+            [lein-cloverage "1.1.1"]]
 
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [cheshire "5.9.0"]
