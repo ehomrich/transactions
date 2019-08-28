@@ -11,10 +11,11 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [cheshire "5.9.0"]
                  [luposlip/json-schema "0.1.7"]
-                 [clj-time "0.15.2"]
-                 [midje "1.9.9"]]
+                 [clj-time "0.15.2"]]
 
   :main transactions.core
   :target-path "target/%s"
 
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:dev {:aliases {"start" ["trampoline" "run" "-m" "transactions.core"]}
+                   :dependencies [[midje "1.9.9"]]}
+             :uberjar {:aot :all}})
