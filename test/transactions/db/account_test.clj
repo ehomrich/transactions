@@ -7,7 +7,6 @@
 
 (def account-input {:activeCard true
                      :availableLimit 80})
-
 (def update-account-input {:availableLimit 50})
 
 (facts "Account"

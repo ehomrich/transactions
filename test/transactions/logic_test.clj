@@ -5,26 +5,18 @@
    [transactions.logic :as logic]))
 
 (def active-account {:activeCard true :availableLimit 55})
-
 (def blocked-card {:activeCard false :availableLimit 55})
-
 (def transaction {:merchant "Subway"
                   :amount 35
                   :time "2017-09-03T21:56:42.809Z"})
-
 (def expensive-tx {:amount 1100})
-
 (def tx-history [{:merchant "Subway" :amount 35 :time "2017-09-03T21:54:50.000Z"}
                  {:merchant "KFC" :amount 40 :time "2017-09-03T21:55:35.000Z"}
                  {:merchant "Subway" :amount 35 :time "2017-09-03T21:56:21.000Z"}
                  {:merchant "Bob's" :amount 50 :time "2017-09-03T22:19:00.000Z"}])
-
 (def tx-without-violations (last tx-history))
-
 (def dt-within-interval (local/to-local-date-time "2017-09-03T21:55:00.000Z"))
-
 (def dt-out-of-interval (local/to-local-date-time "2017-09-03T22:05:00.000Z"))
-
 (def some-interval (let [start (time/minus dt-within-interval (time/minutes 5))
                          base-end (time/plus start (time/minutes 10))
                          end (time/plus base-end (time/millis 1))]
