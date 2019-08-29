@@ -64,10 +64,21 @@
              (ctrl/check-violations account high-frequency-tx tx-history)
              => "high-frequency-small-interval"))
 
-(facts "Execute operation"
-       (fact "Unrecognized input"
-             (ctrl/validate-operation {})
-             => (throws Exception)))
+(facts "Execute transaction"
+       (with-state-changes [(before :contents (do
+                                                (account-db/create-account! account)
+                                                (transaction-db/save-transaction! doubled-tx)))
+                            (after :contents (do
+                                               (account-db/create-account! {})
+                                               (transaction-db/reset-transaction-history!)))]
+
+         (fact "Transaction executed successfully"
+               (ctrl/execute-transaction doubled-tx)
+               => (contains {:violations []}))
+         
+         (fact "Transaction denied due to violations"
+               (ctrl/execute-transaction doubled-tx)
+               => (contains {:violations ["doubled-transaction"]}))))
 
 (facts "Validate operation"
        (with-state-changes [(before :contents (do
