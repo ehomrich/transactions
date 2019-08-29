@@ -22,5 +22,3 @@
 
        (fact "Catch validation error"
              (valid-schema? product-schema {:name "Cheese"}) => false))
-
-(facts "Account and transaction schemas")
