@@ -8,5 +8,5 @@
   [& args]
   (loop [line (read-line)]
     (when line
-      (process-data line)
+      (println (process-data line))
       (recur (read-line)))))

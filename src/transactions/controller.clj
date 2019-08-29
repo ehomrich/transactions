@@ -48,9 +48,6 @@
   (try
     (-> (decode data true)
         (validate-operation)
-        (encode)
-        (println))
-    ;; HACK: "catch all" block because `cheshire` does not explicitly list 
-    ;; exceptions that may occur.
-    (catch Exception ex
-      (println ""))))
+        (encode))
+    ;; HACK: catch-all block because `cheshire` throws a myriad of exceptions.
+    (catch Exception ex "")))
