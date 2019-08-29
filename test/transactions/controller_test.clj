@@ -73,11 +73,11 @@
                                                (transaction-db/reset-transaction-history!)))]
 
          (fact "Transaction executed successfully"
-               (ctrl/execute-transaction doubled-tx)
+               (ctrl/execute-transaction! doubled-tx)
                => (contains {:violations []}))
-         
+
          (fact "Transaction denied due to violations"
-               (ctrl/execute-transaction doubled-tx)
+               (ctrl/execute-transaction! doubled-tx)
                => (contains {:violations ["doubled-transaction"]}))))
 
 (facts "Validate operation"

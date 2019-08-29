@@ -6,7 +6,7 @@
 (namespace-state-changes [(after :contents (account-db/create-account! {}))])
 
 (def account-input {:activeCard true
-                     :availableLimit 80})
+                    :availableLimit 80})
 (def update-account-input {:availableLimit 50})
 
 (facts "Account"
