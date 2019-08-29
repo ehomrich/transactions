@@ -6,3 +6,5 @@
   (swap! tx-storage conj tx))
 
 (defn get-transaction-history [] @tx-storage)
+
+(defn reset-transaction-history! [] (reset! tx-storage []))
