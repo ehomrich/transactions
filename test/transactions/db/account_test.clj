@@ -3,6 +3,8 @@
    [midje.sweet :refer :all]
    [transactions.db.account :as account-db]))
 
+(namespace-state-changes [(after :contents (account-db/create-account! {}))])
+
 (def account-input {:activeCard true
                      :availableLimit 80})
 

@@ -3,6 +3,9 @@
    [midje.sweet :refer :all]
    [transactions.db.transaction :as transaction-db]))
 
+(namespace-state-changes [(before :contents (transaction-db/reset-transaction-history!))
+                          (after :contents (transaction-db/reset-transaction-history!))])
+
 (def tx-input {:merchant "McDonald's"
                :amount 35
                :time "2018-03-21T14:19:11.949Z"})
