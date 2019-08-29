@@ -22,7 +22,9 @@
                                                     :required [:merchant :amount :time]}}
                          :required [:transaction]})
 
-(defn valid-schema? [schema input]
+(defn valid-schema?
+  "Checks if `input` meets `schema` requirements."
+  [schema input]
   (try
     (json/validate schema input)
     (catch clojure.lang.ExceptionInfo ex false)))

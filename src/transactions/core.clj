@@ -4,7 +4,7 @@
   (:gen-class))
 
 (defn -main
-  "Read from sdtin."
+  "Reads from stdin, triggers the controller and prints the results to stdout."
   [& args]
   (loop [line (read-line)]
     (when line
