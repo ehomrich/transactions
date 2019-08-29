@@ -1,12 +1,13 @@
 (ns transactions.db.transaction-test
-  (:require [midje.sweet :refer :all]
-            [transactions.db.transaction :as transaction-db]))
+  (:require
+   [midje.sweet :refer :all]
+   [transactions.db.transaction :as transaction-db]))
 
 (def tx-sample {:merchant "Foo"
-                         :amount 35
-                         :time "2018-03-21T14:19:11.949Z"})
+                :amount 35
+                :time "2018-03-21T14:19:11.949Z"})
 
-(facts "Account handling"
+(facts "Transactions"
        (fact "Get empty transaction history"
              (transaction-db/get-transaction-history) => [])
 
