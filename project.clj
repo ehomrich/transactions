@@ -17,6 +17,7 @@
   :main ^{:skip-aot true} transactions.core
   :target-path "target/%s"
 
-  :profiles {:dev {:aliases {"start" ["trampoline" "run" "-m" "transactions.core"]}
+  :profiles {:dev {:aliases {"start" ["trampoline" "run" "-m" "transactions.core"]
+                             "coverage" ["cloverage" "-r" ":midje" "-o" "coverage"]}
                    :dependencies [[midje "1.9.9"]]}
              :uberjar {:aot :all}})
