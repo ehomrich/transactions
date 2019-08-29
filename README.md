@@ -5,11 +5,13 @@ following a set of predefined rules.
 
 ## Usage
 
+
+
 ## Building
 
 ### Uberjar
 
-Build an uberjar:
+Build an executable:
 
 ```bash
 lein uberjar
@@ -30,6 +32,8 @@ Build the image:
 ```bash
 docker build -t <name> .
 ```
+
+A single standalone executable jar file is generated and defined as `ENTRYPOINT`.
 
 Run:
 
@@ -94,7 +98,7 @@ File input/stdin "port". Contains account and transaction schemas, and a predica
 
 #### logic
 
-Business logic. Takes care of the transaction rules.
+Business logic. Takes care of transaction validation rules.
 No side effects and no exceptions.
 
 #### controller
