@@ -49,6 +49,9 @@ profiles.clj
 
 ### Leiningen ###
 
+### Coverage ###
+coverage/*
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
