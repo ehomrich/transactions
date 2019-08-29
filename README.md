@@ -1,15 +1,73 @@
 # Transactions
 
-A function that authorizes transactions for a specific account.
+A function that authorizes a transaction for a specific account
+following a set of predefined rules.
 
-## Structure
+## Usage
 
-This project mimics the architecture of [nubank/basic-microservice-example](https://github.com/nubank/basic-microservice-example), trying to implement something similar to the hexagonal architecture.
+## Building
 
-### Project anatomy
+### Uberjar
+
+Build an uberjar:
+
+```bash
+lein uberjar
+```
+
+The application is processed and produces a standalone jar. Outputs to `/target`.
+
+Execute it with a simple:
+
+```bash
+java -jar path/to/standalone.jar
+```
+
+### Dockerized build
+
+Build the image:
+
+```bash
+docker build -t <name> .
+```
+
+Run:
+
+```bash
+# User input
+docker run -i <name>
+
+# File redirect
+docker run -i <name> < filename
+```
+
+## Tests
+
+This project uses the [Midje](https://github.com/marick/Midje) test framework.
+
+### Running tests
+
+```bash
+lein midje
+```
+
+### Coverage
+
+[cloverage](https://github.com/cloverage/cloverage) is used to measure code coverage. To collect execution data, run:
+
+```bash
+lein coverage
+```
+
+This command uses the `midje` runner and outputs results as HTML reports to the `/coverage` directory, at the root of the project.
+
+
+## Project anatomy
+
+The directory structure mimics [nubank/basic-microservice-example](https://github.com/nubank/basic-microservice-example), trying to implement something similar to the hexagonal architecture.
 
 ```
-src 
+src
  └ transactions                     → Application source code
     └ db                            → In-memory storage
        └ account.clj                → Account data structure and state methods
@@ -19,7 +77,7 @@ src
     └ controller.clj                → "Glue code" wiring all the other layers
     └ logic.clj                     → Business logic
     └ core.clj                      → Main application entry point
-└ test                              → Test suites
+└ test/                             → Test suites
 └ project.clj
 └ Dockerfile
 ```
@@ -28,12 +86,11 @@ src
 
 Rudimentary in-memory storage components.
 
-Account storage is simply an atom pointing to a map, and transaction history is an atom pointing to a simple vector. A few methods are provided to retrieve and change the value/properties of each structure value.
+Account and transaction storages are simple atoms, the former points to a map, the latter to a vector. A few methods are provided to retrieve and change the value or properties of each data structure.
 
 #### file
 
-File input/stdin "port". Contains account and transaction schemas, and a predicate validator method.
-
+File input/stdin "port". Contains account and transaction schemas, and a predicate validator.
 
 #### logic
 
@@ -44,8 +101,8 @@ No side effects and no exceptions.
 
 Orchestrates the processing flow by wiring the layers.
 
-Triggers schema validation, redirects input to proper execution methods, and formats output.
+Parses input, triggers schema validation, redirects to proper execution methods, and formats output.
 
 #### core
 
-Application entry point. A simple loop that reads from stdin and prints to stdout.
+Application entry point. A loop that reads from stdin, triggers the controller and prints the results to stdout.
