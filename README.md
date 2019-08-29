@@ -5,7 +5,100 @@ following a set of predefined rules.
 
 ## Usage
 
+The program read operations as JSON lines from stdin, processing one at a time, in the order they are provided.
 
+Example:
+
+```bash
+$ cat operations.txt
+{ "account": { "activeCard": true, "availableLimit": 100 } }
+{ "transaction": { "merchant": "Burger King", "amount": 20, "time": "2019-02-13T10:00:00.000Z" } }
+{} # empty JSON
+
+$ lein run < operations.txt
+
+{"account":{"activeCard":true,"availableLimit":100},"violations":[]}
+{"account":{"activeCard":true,"availableLimit":80},"violations":[]}
+    # parsing errors result in empty lines
+```
+
+It can be run by interacting with the user, processing as the user enters operations, or redirecting file contents. So the calls below work the same way:
+
+```bash
+# User input
+lein run
+
+# File redirect
+lein run < filename
+```
+
+The alias `start` is also available, to run the program with the `dev` profile.
+
+To exit the program, enter Ctrl+C or Command+C (OS X).
+
+> The state is discarded when the program exists.
+
+### Operations
+
+The program handles two kinds of operations:
+
+- Account creation
+- Transaction autorization
+
+#### Account creation
+
+To create an account, the program expects input with the following format (indented for better readability):
+
+```json
+{
+    "account": {
+        "activeCard": "boolean",
+        "availableLimit": "number"
+    }
+}
+```
+
+This input defines the account state, with `availableLimit` and `activeCard`.
+
+#### Transaction authorization
+
+Expect input with the following format:
+
+```json
+{
+    "transaction": {
+        "merchant": "string",
+        "amount": "number",
+        "time": "ISO date-time string"
+    }
+}
+```
+
+The program will attempt to authorize a transaction of a certain `amount` for a particular `merchant` at a given `time`. 
+
+### Output
+
+For each operation, regardless of type, the output will be the account's current state and any **business logic violations**.
+
+Example:
+
+```json
+{
+  "account": { "activeCard": true, "availableLimit": 80 },
+  "violations": ["insufficient-limit"]
+}
+```
+
+### Business logic violations
+
+For an operation to be authorized, it must pass some validations. Below the rules are described along with their violation code:
+
+- `unknown-account`: Transactions can only be processed if there is an account.
+- `illegal-account-reset`: Once created, accounts cannot be reset.
+- `insufficient-limit`: The transaction amount should not exceed available limit.
+- `card-blocked`: Transactions are denied when the card is blocked.
+- `high-frequency-small-interval`: There should not be more than 3 transactions on a 2 minute interval.
+- `doubled-transaction`: There should not be more than 2 similar transactions (same amount and merchant) in a 2 minutes interval.
 
 ## Building
 
@@ -64,7 +157,6 @@ lein coverage
 ```
 
 This command uses the `midje` runner and outputs results as HTML reports to the `/coverage` directory, at the root of the project.
-
 
 ## Project anatomy
 
