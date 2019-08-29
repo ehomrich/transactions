@@ -4,8 +4,8 @@
    [transactions.db.transaction :as transaction-db]))
 
 (def tx-input {:merchant "McDonald's"
-                :amount 35
-                :time "2018-03-21T14:19:11.949Z"})
+               :amount 35
+               :time "2018-03-21T14:19:11.949Z"})
 
 (facts "Transactions"
        (fact "Get empty transaction history"
