@@ -14,7 +14,7 @@
                  [luposlip/json-schema "0.1.7"]
                  [clj-time "0.15.2"]]
 
-  :main transactions.core
+  :main ^{:skip-aot true} transactions.core
   :target-path "target/%s"
 
   :profiles {:dev {:aliases {"start" ["trampoline" "run" "-m" "transactions.core"]}
