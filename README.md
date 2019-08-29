@@ -3,6 +3,20 @@
 A function that authorizes a transaction for a specific account
 following a set of predefined rules.
 
+## Summary:
+
+1. [Usage](#usage)
+   - [Operations](#operations)
+   - [Output](#output)
+   - [Business logic violations](#business-logic-violations)
+1. [Building](#building)
+   - [Uberjar](#uberjar)
+   - [Docker](#dockerized-build)
+1. [Tests](#tests)
+   - [Running tests](#running-tests)
+   - [Coverage](#coverage)
+1. [Project anatomy](#project-anatomy)
+
 ## Usage
 
 The program read operations as JSON lines from stdin, processing one at a time, in the order they are provided.
@@ -51,10 +65,10 @@ To create an account, the program expects input with the following format (inden
 
 ```json
 {
-    "account": {
-        "activeCard": "boolean",
-        "availableLimit": "number"
-    }
+  "account": {
+    "activeCard": "boolean",
+    "availableLimit": "number"
+  }
 }
 ```
 
@@ -66,15 +80,15 @@ Expect input with the following format:
 
 ```json
 {
-    "transaction": {
-        "merchant": "string",
-        "amount": "number",
-        "time": "ISO date-time string"
-    }
+  "transaction": {
+    "merchant": "string",
+    "amount": "number",
+    "time": "ISO date-time string"
+  }
 }
 ```
 
-The program will attempt to authorize a transaction of a certain `amount` for a particular `merchant` at a given `time`. 
+The program will attempt to authorize a transaction of a certain `amount` for a particular `merchant` at a given `time`.
 
 ### Output
 
