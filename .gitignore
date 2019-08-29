@@ -50,7 +50,7 @@ profiles.clj
 ### Leiningen ###
 
 ### Coverage ###
-coverage/*
+/coverage/
 
 ### VisualStudioCode ###
 .vscode/*
